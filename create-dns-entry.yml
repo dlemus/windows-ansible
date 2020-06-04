@@ -1,5 +1,5 @@
 ---
-- name: Provision a new instance and add to hosts
+- name: Add public dns entry for server
   hosts: localhost
   connection: local
   gather_facts: no
