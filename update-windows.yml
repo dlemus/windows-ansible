@@ -1,13 +1,15 @@
 ---
-- name: install Windows Updates
+- name: Install Windows Updates
   hosts: windows
-  gather_facts: true
+  gather_facts: false
 
   tasks:
-    - name: check for missing updates.
+    - name: Installing only security updates
       win_updates:
         state: searched
+        category_names:
+          - SecurityUpdates
       register: update_count
-
+      
     - debug:
-        var: update_count
+      var: update_count
