@@ -2,11 +2,12 @@
 - name: Automating Windows with Red Hat Ansible
   hosts: windows-servers
   gather_facts: false
-  iis_sites:
-    - name: Ansible Playbook Test
-      port: 8080
-      path: C:\sites\playbooktest
-  iis_test_message: "Hello World!  My test IIS Server"
+  vars:
+    iis_sites:
+      - name: Ansible Playbook Test
+        port: 8080
+        path: C:\sites\playbooktest
+    iis_test_message: "Hello World!  My test IIS Server"
   tasks:
     - name: Add a Windows Admin User
       win_user:
