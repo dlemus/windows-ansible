@@ -1,0 +1,15 @@
+---
+- name: Apache server and firewall stopped
+  hosts: apache
+  tasks:
+  - name: Stop website
+    service:
+      name: httpd
+      enabled: false
+      state: stopped
+      
+  - name: stop firewall
+    service:
+      name: firewalld
+      enabled: false
+      state: stopped
