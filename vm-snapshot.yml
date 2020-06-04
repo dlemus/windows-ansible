@@ -1,0 +1,12 @@
+---
+- Takes a snapshot of a VM
+  hosts: all
+  gather_facts: false
+
+  tasks:
+  - name: Take snapshot
+    debug:
+      msg: 'Taking a snapshot of {{ ansible_host }}'
+  - name: Waiting for snapshot to complete
+    wait_for:
+      timeout: 5
