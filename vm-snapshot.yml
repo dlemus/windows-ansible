@@ -1,5 +1,5 @@
 ---
-- Takes a snapshot of a VM
+- name: Takes a snapshot of a VM
   hosts: all
   gather_facts: false
 
