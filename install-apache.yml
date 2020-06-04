@@ -1,12 +1,23 @@
 ---
 - name: Apache server installed
-  hosts: all
-
+  hosts: apache
+  vars:
+    iis_test_message: "Hello World!  My test Apache Server"
   tasks:
   - name: latest Apache version installed
     yum:
       name: httpd
       state: latest
+
+  - name: deploy index.html
+    template:
+      src: index.html.j2
+      dest: /var/www/html/index.html
+
+  - name: copy images
+    copy:
+      src: bird.jpg
+      dest: /var/www/html/bird.jpg
 
   - name: latest firewalld version installed
     yum:
@@ -26,21 +37,24 @@
       state: enabled
       immediate: yes
 
-    - name: deploy index.html
-      template:
-        src: index.html.j2
-        dest: /var/www/html/index.html
-    - name: copy images
-      copy:
-        src: bird.jpg
-        dest: /var/www/html/bird.jpg
-    - name: apache-restart
-      service:
-        name: httpd
-        state: restarted
-        
   - name: Apache enabled and running
     service:
       name: httpd
       enabled: true
       state: started
+
+  - name: proper response from apache is received
+    uri:
+      url: http://{{ ansible_host }}/
+      return_content: yes
+      validate_certs: no
+    register: response
+    until: iis_test_message in response.content
+    retries: 10
+    delay: 1
+    ignore_errors: yes
+
+  - name: output url
+    debug:
+      msg: 'application is available at http://{{ ansible_host }}/'
+    when: response is success
