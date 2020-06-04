@@ -1,0 +1,10 @@
+---
+- name: Undeploy windows website
+  hosts: windows
+  gather_facts: false
+  tasks:
+    - name: stop iis service
+      win_dsc:
+        resource_name: service
+        name: W3Svc
+        state: stopped
