@@ -4,9 +4,9 @@
   gather_facts: false
   vars:
     iis_sites:
-      - name: Ansible Playbook Test
-        port: 8080
-        path: C:\sites\playbooktest
+      name: Ansible Playbook Test
+      port: 8080
+      path: C:\sites\playbooktest
     iis_test_message: "Hello World!  My test IIS Server"
   tasks:
   - name: Add a Windows Admin User
