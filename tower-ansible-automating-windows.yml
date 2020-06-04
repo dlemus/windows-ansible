@@ -1,7 +1,7 @@
 ---
 - name: Automating Windows with Red Hat Ansible
   hosts: all
-  gather_facts: false
+  gather_facts: true
   vars:
     iis_sites:
       - name: Ansible Playbook Test
