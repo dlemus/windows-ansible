@@ -1,0 +1,13 @@
+---
+- name: install Windows Updates
+  hosts: windows
+  gather_facts: false
+
+  tasks:
+    - name: check for missing updates.
+      win_updates:
+        state: searched
+      register: update_count
+
+    - debug:
+        var: update_count
