@@ -11,8 +11,8 @@
 
   - name: Create site directory structure
     file:
-    path: /src/www
-    state: directory
+      path: /src/www
+      state: directory
     
   - name: Create main page
     template:
