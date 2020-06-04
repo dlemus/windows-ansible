@@ -4,41 +4,46 @@
   vars:
     iis_test_message: "Hello World!  My test Apache Server"
   tasks:
-  - name: latest Apache version installed
+  - name: Install Web Server
     yum:
       name: httpd
       state: latest
 
-  - name: deploy index.html
+  - name: Create site directory structure
+    file:
+    path: /src/www
+    state: directory
+    
+  - name: Create main page
     template:
       src: index.html.j2
       dest: /var/www/html/index.html
-
-  - name: latest firewalld version installed
+  
+  - name: Activate website
+    service:
+      name: httpd
+      enabled: true
+      state: started
+      
+  - name: install firewall
     yum:
       name: firewalld
       state: latest
 
-  - name: firewalld enabled and running
+  - name: ensure firewall enabled and running
     service:
       name: firewalld
       enabled: true
       state: started
 
-  - name: firewalld permits http service
+  - name: Open port for site on the firewall
     firewalld:
       service: http
       permanent: true
       state: enabled
       immediate: yes
 
-  - name: Apache enabled and running
-    service:
-      name: httpd
-      enabled: true
-      state: started
-
-  - name: proper response from apache is received
+  - name: Verify website is running
     uri:
       url: http://{{ ansible_host }}/
       return_content: yes
@@ -49,7 +54,7 @@
     delay: 1
     ignore_errors: yes
 
-  - name: output url
+  - name: Website is ready
     debug:
       msg: 'application is available at http://{{ ansible_host }}/'
     when: response is success
