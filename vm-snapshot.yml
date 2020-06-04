@@ -8,5 +8,5 @@
     debug:
       msg: 'Taking a snapshot of {{ ansible_host }}'
   - name: Waiting for snapshot to complete
-    wait_for:
+    win_wait_for:
       timeout: 5
