@@ -89,3 +89,17 @@
     debug:
       msg: 'application is available at http://{{ ansible_host }}:8080/'
     when: response is success
+    
+  handlers:
+    - name: stop iis service
+      win_dsc:
+        resource_name: service
+        name: W3Svc
+        state: stopped
+
+    - name: start iis service
+      win_dsc:
+        resource_name: service
+        name: W3Svc
+        state: Running
+        startuptype: Automatic
