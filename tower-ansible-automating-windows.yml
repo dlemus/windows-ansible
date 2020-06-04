@@ -1,6 +1,6 @@
 ---
 - name: Automating Windows with Red Hat Ansible
-  hosts: all
+  hosts: windows
   gather_facts: false
   vars:
     iis_sites:
@@ -95,7 +95,7 @@
     retries: 10
     delay: 1
     ignore_errors: yes
-         
+
   - name: output url
     debug:
       msg: 'application is available at http://{{ ansible_host }}:8080/'
