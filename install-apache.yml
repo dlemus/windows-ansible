@@ -14,11 +14,6 @@
       src: index.html.j2
       dest: /var/www/html/index.html
 
-  - name: copy images
-    copy:
-      src: bird.jpg
-      dest: /var/www/html/bird.jpg
-
   - name: latest firewalld version installed
     yum:
       name: firewalld
