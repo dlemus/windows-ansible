@@ -35,7 +35,7 @@
       - xWebAdministration
       - xNetworking
 
-  - name: Install IIS
+  - name: Install Web Server
     win_dsc:
       resource_name: windowsfeature
       name: Web-Server
@@ -48,7 +48,13 @@
       destinationpath: "{{ item.path }}"
     with_items: "{{ iis_sites }}"
 
-  - name: Create IIS Website
+  - name: Create main page
+    win_template:
+      src: 'index.html.j2'
+      dest: '{{ item.path }}\index.html'
+    with_items: "{{ iis_sites }}"
+
+  - name: Activate website
     win_dsc:
       resource_name: xWebsite
       Ensure: Present
@@ -79,13 +85,7 @@
       - stop iis service
       - start iis service
 
-  - name: Template simple web site to iis_site_path as index.html
-    win_template:
-      src: 'index.html.j2'
-      dest: '{{ item.path }}\index.html'
-    with_items: "{{ iis_sites }}"
-
-  - name: proper response from iis is received
+  - name: Verify website is running
     win_uri:
       url: http://{{ ansible_host }}:8080/
       return_content: yes
@@ -96,7 +96,7 @@
     delay: 1
     ignore_errors: yes
 
-  - name: output url
+  - name: Website is ready
     debug:
       msg: 'application is available at http://{{ ansible_host }}:8080/'
     when: response is success
