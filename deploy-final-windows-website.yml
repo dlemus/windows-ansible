@@ -42,7 +42,14 @@
       src: bird.jpg
       dest: '{{ item.path }}\bird.jpg'
     with_items: "{{ iis_sites }}"
-        
+
+  - name: start iis service
+    win_dsc:
+      resource_name: service
+      name: W3Svc
+      state: Running
+      startuptype: Automatic
+      
   - name: Activate website
     win_dsc:
       resource_name: xWebsite
