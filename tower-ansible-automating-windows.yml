@@ -17,8 +17,7 @@
         groups:
             - Administrators
       register: user
-    - debug: var=user  
-            
+      
     - name: Install Telnet-Client Feature
       win_feature:
         name: "Telnet-Client"
@@ -27,8 +26,7 @@
         include_sub_features: True
         include_management_tools: True
       register: telnet
-    - debug: var=telnet
-    
+      
     - name: Install required DSC modules
       win_psmodule:
         name: "{{ item }}"
