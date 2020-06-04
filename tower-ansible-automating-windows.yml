@@ -18,15 +18,6 @@
         - Administrators
     register: user
     
-  - name: Install Telnet-Client Feature
-    win_feature:
-      name: "Telnet-Client"
-      state: present
-      restart: False
-      include_sub_features: True
-      include_management_tools: True
-    register: telnet
-    
   - name: Install required DSC modules
     win_psmodule:
       name: "{{ item }}"
