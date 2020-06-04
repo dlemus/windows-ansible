@@ -1,6 +1,6 @@
 ---
 - name: Provision a new instance and add to hosts
-  hosts: windows
+  hosts: localhost
   connection: local
   gather_facts: no
   
