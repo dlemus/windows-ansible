@@ -1,0 +1,17 @@
+---
+- name: Provision a new instance and add to hosts
+  hosts: windows
+  connection: local
+  gather_facts: no
+  
+  tasks:
+    - name: "Create DNS entry for {{server_name}}.{{ec2_name_prefix}}.{{dns_zone}}"
+      route53:
+        state: present
+        zone: "{{dns_zone}}"
+        record: "{{ server_name }}.{{ec2_name_prefix}}.{{dns_zone}}"
+        type: A
+        ttl: 600
+        value: "{{ ansible_host }}"
+        wait: yes
+        overwrite: yes
