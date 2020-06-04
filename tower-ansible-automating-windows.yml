@@ -1,6 +1,6 @@
 ---
 - name: Automating Windows with Red Hat Ansible
-  hosts: windows-servers
+  hosts: all
   gather_facts: false
   vars:
     iis_sites:
