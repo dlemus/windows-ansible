@@ -12,6 +12,6 @@
         record: "{{ server_name }}.{{ec2_name_prefix}}.{{dns_zone}}"
         type: A
         ttl: 600
-        value: "{{ ansible_host }}"
+        value: "{{ server_ip }}"
         wait: yes
         overwrite: yes
