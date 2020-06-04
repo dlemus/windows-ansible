@@ -1,6 +1,6 @@
 ---
 - name: Takes a snapshot of a VM
-  hosts: all
+  hosts: windows
   gather_facts: false
 
   tasks:
